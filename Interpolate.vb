@@ -1,4 +1,5 @@
- Private Function Interpolate(ByVal FindX As Double, ByVal X1 As Double, ByVal X2 As Double, ByVal Y1 As Double, ByVal Y2 As Double, Optional boolExtrapolate As Boolean = True) As Double
+    Public Function Interpolate(ByVal FindX As Double, ByVal X1 As Double, ByVal X2 As Double, ByVal Y1 As Double, ByVal Y2 As Double, Optional boolExtrapolate As Boolean = True) As Double
+        Dim Interpolated As Double
         Dim UpperLimitX As Double
         Dim UpperLimitY As Double
         Dim LowerLimitX As Double
@@ -18,21 +19,21 @@
                 End If
 
                 If FindX <= LowerLimitX Then
-                    'If FindX is less than or equal to X1, 
-                    'return Y will allways be Y1
-                    Return LowerLimitY
+                    'If FindX is less than or equal to X1, return Y will allways be Y1
+                    Interpolated = LowerLimitY
                 ElseIf FindX >= UpperLimitX Then
-                    'If FindX is greater than or equal to X2, 
-                    'return Y will allways be Y2
-                    Return UpperLimitY
+                    'If FindX is greater than or equal to X2, Return Y will allways be Y2
+                    Interpolated = UpperLimitY
                 End If
             Else
-                Return Y1 + (Y2 - Y1) * (FindX - X1) / (X2 - X1)
+                Interpolated = (Y1 + (Y2 - Y1) * (FindX - X1) / (X2 - X1))
             End If
         Catch ex As Exception
             Dim Error_Location As String
             Error_Location = "Interpolate"
             MessageBox.Show(vbExclamation, Error_Location & ":" & Err.Number)
-            Interpolate = 0
+            Interpolated = 0
         End Try
+
+        Return Interpolated
     End Function
